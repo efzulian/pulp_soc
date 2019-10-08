@@ -374,6 +374,8 @@ module pulp_soc
 
     logic                  spi_master0_csn3, spi_master0_csn2;
 
+    logic                  wdt_reset_o;
+
     APB_BUS                s_apb_eu_bus ();
     APB_BUS                s_apb_hwpe_bus ();
     APB_BUS                s_apb_debug_bus();
@@ -668,7 +670,9 @@ module pulp_soc
         .cluster_boot_addr_o    ( cluster_boot_addr_o    ),
         .cluster_fetch_enable_o ( cluster_fetch_enable_o ),
         .cluster_rstn_o         ( s_cluster_rstn_soc_ctrl),
-        .cluster_irq_o          ( cluster_irq_o          )
+        .cluster_irq_o          ( cluster_irq_o          ),
+
+	.wdt_reset_o		( wdt_reset_o		 )
     );
 
 
@@ -724,6 +728,9 @@ module pulp_soc
         .rst_ni              ( s_soc_rstn          ),
 
         .test_en_i           ( dft_test_mode_i     ),
+
+        //wdt
+	.wdt_reset_i	     ( wdt_reset_o         ),
 
         .boot_addr_i         ( s_fc_bootaddr       ),
 
